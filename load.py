@@ -49,8 +49,8 @@ def insert_csv_to_mongodb(csv_file, mongo_config, db_name, collection_name):
         # Close the MongoDB connection
         client.close()
 
-# Example usage
-csv_file = 'svc_summary_data.csv'
+# traffic signals data
+csv_file = 'traffic-signals-timing.csv'
 mongo_config = {
     "host": "localhost",
     "port": 27017,
@@ -59,6 +59,20 @@ mongo_config = {
     "authSource": "admin"
 }
 db_name = 'fireball'
-collection_name = 'svc'
+collection_name = 'traffic-signals-timing'
+
+insert_csv_to_mongodb(csv_file, mongo_config, db_name, collection_name)
+
+# traffic volumes data
+csv_file = 'svc_most_recent_summary_data.csv'
+mongo_config = {
+    "host": "localhost",
+    "port": 27017,
+    "username": "mongoadmin",
+    "password": "mongoadmin",
+    "authSource": "admin"
+}
+db_name = 'fireball'
+collection_name = 'traffic-volumes'
 
 insert_csv_to_mongodb(csv_file, mongo_config, db_name, collection_name)
