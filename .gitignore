@@ -6,3 +6,4 @@ workspace
 pyvenv.cfg
 *.csv
 *__pycache__
+*.zip

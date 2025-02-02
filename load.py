@@ -76,7 +76,50 @@ def insert_json_to_mongodb(json_file, mongo_config, db_name, collection_name):
 
 
 # csv data
-csv_file = 'cycling-network-4326.csv'
+# csv_file = 'cycling-network-4326.csv'
+# # traffic signals data
+# csv_file = 'traffic-signals-timing.csv'
+# mongo_config = {
+#     "host": "localhost",
+#     "port": 27017,
+#     "username": "mongoadmin",
+#     "password": "mongoadmin",
+#     "authSource": "admin"
+# }
+# db_name = 'fireball'
+# collection_name = 'traffic-signals-timing'
+
+# insert_csv_to_mongodb(csv_file, mongo_config, db_name, collection_name)
+
+# # traffic volumes data
+# csv_file = 'e-bike-survey-response-results.csv'
+# mongo_config = {
+#     "host": "localhost",
+#     "port": 27017,
+#     "username": "mongoadmin",
+#     "password": "mongoadmin",
+#     "authSource": "admin"
+# }
+# db_name = 'fireball'
+# collection_name = 'survey-responses'
+
+# insert_csv_to_mongodb(csv_file, mongo_config, db_name, collection_name)
+
+# csv_file = 'bikeshare-ridership-2020.csv'
+# mongo_config = {
+#     "host": "localhost",
+#     "port": 27017,
+#     "username": "mongoadmin",
+#     "password": "mongoadmin",
+#     "authSource": "admin"
+# }
+# db_name = 'fireball'
+# collection_name = 'cycling-network'
+
+# insert_csv_to_mongodb(csv_file, mongo_config, db_name, collection_name)
+
+# json data
+json_file = 'station_data.json'
 mongo_config = {
     "host": "localhost",
     "port": 27017,
@@ -85,11 +128,47 @@ mongo_config = {
     "authSource": "admin"
 }
 db_name = 'fireball'
-collection_name = 'cycling-network'
-
-insert_csv_to_mongodb(csv_file, mongo_config, db_name, collection_name)
-
-# json data
-json_file = 'station_data.json'
 collection_name = 'station-data'
 insert_json_to_mongodb(json_file, mongo_config, db_name, collection_name)
+# collection_name = 'bikeshare-ridership-2020'
+
+# insert_csv_to_mongodb(csv_file, mongo_config, db_name, collection_name)
+
+# csv_file = 'bikeshare-ridership-2021.csv'
+# mongo_config = {
+#     "host": "localhost",
+#     "port": 27017,
+#     "username": "mongoadmin",
+#     "password": "mongoadmin",
+#     "authSource": "admin"
+# }
+# db_name = 'fireball'
+# collection_name = 'bikeshare-ridership-2021'
+
+# insert_csv_to_mongodb(csv_file, mongo_config, db_name, collection_name)
+
+# csv_file = 'bikeshare-ridership-2022.csv'
+# mongo_config = {
+#     "host": "localhost",
+#     "port": 27017,
+#     "username": "mongoadmin",
+#     "password": "mongoadmin",
+#     "authSource": "admin"
+# }
+# db_name = 'fireball'
+# collection_name = 'bikeshare-ridership-2022'
+
+# insert_csv_to_mongodb(csv_file, mongo_config, db_name, collection_name)
+
+# csv_file = 'bikeshare-ridership-2023.csv'
+# mongo_config = {
+#     "host": "localhost",
+#     "port": 27017,
+#     "username": "mongoadmin",
+#     "password": "mongoadmin",
+#     "authSource": "admin"
+# }
+# db_name = 'fireball'
+# collection_name = 'bikeshare-ridership-2023'
+
+# insert_csv_to_mongodb(csv_file, mongo_config, db_name, collection_name)
