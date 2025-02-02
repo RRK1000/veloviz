@@ -1,5 +1,6 @@
 version: "3.9"
 services:
+  # metabase
   metabase:
     image: metabase/metabase:latest
     container_name: metabase
@@ -16,7 +17,7 @@ services:
       MB_DB_PASS: mysecretpassword
       MB_DB_HOST: postgres
     networks:
-      - metanet1
+      - fireball_net
     healthcheck:
       test: curl --fail -I http://localhost:3000/api/health || exit 1
       interval: 15s
@@ -30,9 +31,12 @@ services:
       POSTGRES_USER: metabase
       POSTGRES_DB: metabaseappdb
       POSTGRES_PASSWORD: mysecretpassword
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     networks:
-      - metanet1
+      - fireball_net
 
+  # MongoDB
   mongo:
     image: mongo
     restart: always
@@ -49,7 +53,7 @@ services:
         source: mongodb_data_volume
         target: /data/db
     networks:
-      - metanet1
+      - fireball_net
         
   mongo-express:
     image: mongo-express
@@ -68,13 +72,59 @@ services:
     depends_on:
       - mongo
     networks:
-      - metanet1
+      - fireball_net
+
+  # Temporal
+  temporal:
+    container_name: temporal
+    depends_on:
+      - postgres
+    environment:
+      - DB=postgres12
+      - DB_PORT=5432
+      - POSTGRES_USER=metabase
+      - POSTGRES_PWD=mysecretpassword
+      - POSTGRES_SEEDS=postgres
+      - DYNAMIC_CONFIG_FILE_PATH=config/dynamicconfig/development-sql.yaml
+    image: temporalio/auto-setup:1.26.2
+    networks:
+      - fireball_net
+    ports:
+      - 7233:7233
+    volumes:
+      - ./temporal_config:/etc/temporal/config/dynamicconfig
+  temporal-admin-tools:
+    container_name: temporal-admin-tools
+    depends_on:
+      - temporal
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CLI_ADDRESS=temporal:7233
+    image: temporalio/admin-tools:1.26.2
+    networks:
+      - fireball_net
+    stdin_open: true
+    tty: true
+  temporal-ui:
+    container_name: temporal-ui
+    depends_on:
+      - temporal
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CORS_ORIGINS=http://localhost:3000
+    image: temporalio/ui:2.31.2
+    networks:
+      - fireball_net
+    ports:
+      - 8080:8080
 
 
 volumes:
   mongodb_data_volume:
     driver: local  
+  pgdata:
+    driver: local
 
 networks:
-  metanet1:
+  fireball_net:
     driver: bridge
